@@ -3,12 +3,12 @@ import os
 
 import requests
 
-from hubble_exchange.constants import get_allowed_candle_intervals
+from hubble_exchange.constants import get_allowed_candle_intervals, HUBBLE_INDEXER_API_URL
 
 
 class IndexerClient:
     def __init__(self):
-        indexer_api_url = os.getenv("HUBBLE_INDEXER_API_URL")
+        indexer_api_url = os.getenv("HUBBLE_INDEXER_API_URL") or HUBBLE_INDEXER_API_URL
         if not indexer_api_url:
             raise ValueError("HUBBLE_INDEXER_API_URL environment variable not set")
         self.indexer_api_url = indexer_api_url
