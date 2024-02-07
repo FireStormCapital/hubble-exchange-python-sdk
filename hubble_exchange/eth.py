@@ -20,7 +20,7 @@ from hubble_exchange.errors import OrderNotFound, TraderNotFound
 from hubble_exchange.models import (GetPositionsResponse, OpenOrder,
                                     OrderBookDepthResponse,
                                     OrderStatusResponse)
-from hubble_exchange.constants import HTTP_PROTOCOL, WS_PROTOCOL
+from hubble_exchange.constants import HTTP_PROTOCOL, WS_PROTOCOL, HUBBLE_WS_URL,HUBBLE_RPC_URL
 
 sync_web3_client = None
 async_web3_client = None
@@ -137,14 +137,14 @@ def get_sync_web3_client() -> Web3:
 
 
 def get_rpc_endpoint() -> str:
-    rpc_endpoint = os.getenv("HUBBLE_RPC")
+    rpc_endpoint = os.getenv("HUBBLE_RPC") or HUBBLE_RPC_URL
     if not rpc_endpoint:
         raise ValueError("HUBBLE_RPC environment variable not set")
     return rpc_endpoint
 
 
 def get_websocket_endpoint() -> str:
-    ws_rpc_endpoint = os.getenv("HUBBLE_WS_RPC")
+    ws_rpc_endpoint = os.getenv("HUBBLE_WS_RPC") or HUBBLE_WS_URL
     if not ws_rpc_endpoint:
         raise ValueError("HUBBLE_WS_RPC environment variable not set")
     return ws_rpc_endpoint
